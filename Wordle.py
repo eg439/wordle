@@ -13,10 +13,15 @@ from WordleGraphics import WordleGWindow, N_COLS, N_ROWS
 def wordle():
 
     def enter_action(s):
-        gw.show_message("You have to implement this method.")
+        s= s.lower()
+        if s in FIVE_LETTER_WORDS:
+            gw.show_message("This is in the dictionary")
+        else :
+            gw.show_message("You have to implement this method. " + str(s))
 
     gw = WordleGWindow()
     gw.add_enter_listener(enter_action)
+    
 
 # Startup code
 
