@@ -15,10 +15,13 @@ def wordle():
     # Checking to see if it is in the dictionary
     def enter_action(s):
         s= s.lower()
-        if s in FIVE_LETTER_WORDS:
-            gw.show_message("This is in the dictionary")
+        if len(s) < 5:
+            if s in FIVE_LETTER_WORDS:
+                gw.show_message("This is in the dictionary")
+            else :
+                gw.show_message("Not in dictionary.")
         else :
-            gw.show_message("Not in dictionary.")
+            gw.show_message("Please enter a 5 letter word")
 
     gw = WordleGWindow()
     gw.add_enter_listener(enter_action)
