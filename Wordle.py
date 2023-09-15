@@ -11,34 +11,39 @@ from WordleDictionary import FIVE_LETTER_WORDS
 from WordleGraphics import WordleGWindow, N_COLS, N_ROWS
 
 def wordle():
-
     wordToGuess = pickWord()
     # Checking to see if it is in the dictionary
     def enter_action(s):
         s= s.lower()
+        print(s)
         if len(s) == 5:
-            if s in FIVE_LETTER_WORDS:
+            #make sure it is in the dictionary, but it isn't the guessed word
+            if (s in FIVE_LETTER_WORDS) & (s != wordToGuess):
                 gw.show_message("This is in the dictionary")
-                rowNum = rowNum + 1
-            else :
+                #gets the current row
+                row = gw.get_current_row()
+                #making sure they aren't out of guesses
+                if row <5 :
+                    gw.set_current_row(row + 1)
+                else:
+                    gw.show_message("You are out of guesses")
+            #not in dictionary
+            elif (s not in FIVE_LETTER_WORDS) :
                 gw.show_message("Not in dictionary.")
-
+            #guessed the word
+            elif (s == wordToGuess) :
+                gw.show_message("You guessed the word")
+        #didn't put in enough letters
         else :
             gw.show_message("Please enter a 5 letter word")
 
-    rowNum = 0
     gw = WordleGWindow()
-    x = True 
-
-
-    while x==True & rowNum <5:
-        gw.set_current_row(rowNum)
-        gw.add_enter_listener(enter_action)
-        continue
+    gw.add_enter_listener(enter_action)
         
 
     print(wordToGuess)
 
+#picks the word from the dictionary
 def pickWord() :
     pickedWordNum = random.randrange(len(FIVE_LETTER_WORDS))
     pickedWord = FIVE_LETTER_WORDS[pickedWordNum]
