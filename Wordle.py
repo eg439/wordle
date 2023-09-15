@@ -16,16 +16,27 @@ def wordle():
     # Checking to see if it is in the dictionary
     def enter_action(s):
         s= s.lower()
-        if len(s) < 5:
+        if len(s) == 5:
             if s in FIVE_LETTER_WORDS:
                 gw.show_message("This is in the dictionary")
+                rowNum = rowNum + 1
             else :
                 gw.show_message("Not in dictionary.")
+
         else :
             gw.show_message("Please enter a 5 letter word")
 
+    rowNum = 0
     gw = WordleGWindow()
-    gw.add_enter_listener(enter_action)
+    x = True 
+
+
+    while x==True & rowNum <5:
+        gw.set_current_row(rowNum)
+        gw.add_enter_listener(enter_action)
+        continue
+        
+
     print(wordToGuess)
 
 def pickWord() :
