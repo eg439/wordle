@@ -20,8 +20,17 @@ def wordle():
             #make sure it is in the dictionary, but it isn't the guessed word
             if (s in FIVE_LETTER_WORDS) & (s != wordToGuess):
                 gw.show_message("This is in the dictionary")
-                #gets the current row
                 row = gw.get_current_row()
+                s=str(s)
+                for x in s:
+                    xIndex = wordToGuess.find(x)
+                    if xIndex > 0 :
+                        xColumn = s.index(x)
+                        if(xColumn == xIndex) :
+                            gw.set_square_color(row,xColumn,"green")
+                        else :
+                            gw.set_square_color(row,xColumn,"yellow")
+                    xIndex = 0
                 #making sure they aren't out of guesses
                 if row <5 :
                     gw.set_current_row(row + 1)
@@ -32,6 +41,9 @@ def wordle():
                 gw.show_message("Not in dictionary.")
             #guessed the word
             elif (s == wordToGuess) :
+                row = gw.get_current_row()
+                for x in range(0,5) :
+                    gw.set_square_color(row,x,"green")
                 gw.show_message("You guessed the word")
         #didn't put in enough letters
         else :
